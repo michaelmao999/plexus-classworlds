@@ -65,6 +65,11 @@ public class ClassWorld
         return newRealm( id, getClass().getClassLoader() );
     }
 
+    public Map<String, ClassRealm> getRealmMap() {
+        return realms;
+    }
+
+
     public synchronized ClassRealm newRealm( String id, ClassLoader classLoader )
         throws DuplicateRealmException
     {

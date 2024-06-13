@@ -24,6 +24,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.codehaus.plexus.classworlds.ClassWorld;
 import org.codehaus.plexus.classworlds.realm.ClassRealm;
@@ -278,6 +281,13 @@ public class Launcher
         // ----------------------------------------------------------------------
 
         Thread.currentThread().setContextClassLoader( cl );
+        ClassWorld classWorld = getWorld();
+        Map<String, ClassRealm> map= classWorld.getRealmMap();
+        Iterator<Map.Entry<String, ClassRealm>> iter = map.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry<String, ClassRealm> entry = iter.next();
+            System.out.println(entry.getKey() + "=" + entry.getValue());
+        }
 
         Object ret = mainMethod.invoke( mainClass, new Object[]{args, getWorld()} );
 
